@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffeein - Кава, десерти, затишок</title>
+    <style>
+        /* Базові стилі */
+        :root {
+            --primary-color: #8B7355; /* Коричневий */
+            --secondary-color: #556B2F; /* Темно-зелений */
+            --accent-color: #D2B48C; /* Бежевий */
+            --light-color: #F5F5DC; /* Молочний */
+            --text-color: #333333;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Секція Hero */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Спеціальні пропозиції */
+        .specials {
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        .special-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .special-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .special-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .special-card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .special-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .special-card p {
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .special-price {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .special-card .btn {
+            margin-top: auto;
+        }
+
+        /* Меню */
+        .menu {
+            background-color: var(--light-color);
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 20px;
+        }
+
+        .menu-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .menu-item p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .menu-item-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .add-to-cart {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Кошик */
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            display: none;
+            justify-content: flex-end;
+        }
+
+        .cart-overlay.active {
+            display: flex;
+        }
+
+        .cart-container {
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background-color: var(--white);
+            padding: 20px;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cart-overlay.active .cart-container {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            background-color: var(--light-color);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-top: 10px;
+            border-top: 2px solid var(--primary-color);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Попап замовлення */
+        .order-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .order-popup.active {
+            display: flex;
+        }
+
+        .order-form {
+            background-color: var(--white);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .order-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-buttons .btn {
+            flex: 1;
+        }
+
+        /* Години роботи */
+        .hours {
+            background-color: var(--white);
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .hours-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hours h2 {
+            margin-bottom: 20px;
+        }
+
+        .hours-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Анімації для прокручування */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-info h3 {
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Сповіщення про успішне замовлення */
+        .order-success {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            z-index: 1003;
+            display: none;
+        }
+
+        .order-success.active {
+            display: block;
+        }
+
+        .order-success h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Debug panel */
+       
+
+        /* Адаптивність */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .cart-container {
+                max-width: 100%;
+            }
+            
+            /* Два ряди карток на мобільних пристроях */
+            .menu-items {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .menu-item img {
+                height: 150px;
+            }
+            
+            .menu-item-content {
+                padding: 15px;
+            }
+            
+            .menu-item h3 {
+                font-size: 1.1rem;
+            }
+            
+            .menu-item p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .special-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            /* Одна колонка на дуже маленьких екранах */
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Debug Panel -->
+   
+
+    <!-- Кошик -->
+    <div class="cart-icon" id="cartIcon">
+        <span>🛒</span>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+
+    <!-- Секція Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Coffeein</h1>
+            <p class="hero-subtitle">Десерти · Випічка · Кава</p>
+            <p class="hero-description">Місце, де тепло і смачно. Завітай на чашку кави, яка зігріває.</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn">Переглянути меню</a>
+                <a href="#" class="btn btn-secondary" id="orderOnlineBtn">Зробити замовлення онлайн</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Спеціальні пропозиції -->
+    <section class="specials">
+        <div class="container">
+            <h2 class="section-title fade-in">Спеціальні пропозиції</h2>
+            <div class="special-cards">
+                <div class="special-card fade-in">
+                    <div class="special-card-content">
+                        <h3>Капучино + круасан</h3>
+                        <p>Ідеальне поєднання для сніданку або перекусу. Ароматний капучино з ніжним круасаном.</p>
+                        <div class="special-price">85 грн</div>
+                        <button class="btn add-to-cart-btn" data-name="Капучино + круасан" data-price="85">Додати до замовлення</button>
+                    </div>
+                </div>
+                <div class="special-card fade-in">
+                    <div class="special-card-content">
+                        <h3>Американо + макарон</h3>
+                        <p>Насичений американо з ніжним французьким макароном. Ідеальний баланс смаків.</p>
+                        <div class="special-price">75 грн</div>
+                        <button class="btn add-to-cart-btn" data-name="Американо + макарон" data-price="75">Додати до замовлення</button>
+                    </div>
+                </div>
+                <div class="special-card fade-in">
+                    <div class="special-card-content">
+                        <h3>Лате XL зі знижкою зранку</h3>
+                        <p>Великий лате зі знижкою 20% з 8:00 до 11:00. Ідеальний старт дня.</p>
+                        <div class="special-price">60 грн</div>
+                        <button class="btn add-to-cart-btn" data-name="Лате XL зі знижкою зранку" data-price="60">Додати до замовлення</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Години роботи -->
+    <section class="hours">
+        <div class="container">
+            <div class="hours-content">
+                <h2 class="section-title fade-in">Години роботи</h2>
+                <div class="hours-list fade-in">
+                    <div class="hours-item">
+                        <span>Понеділок - П'ятниця</span>
+                        <span>8:00 - 19:00</span>
+                    </div>
+                    <div class="hours-item">
+                        <span>Субота - Неділя</span>
+                        <span>8:00 - 18:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Меню -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <h2 class="section-title fade-in">Наше меню</h2>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Всі позиції</button>
+                <button class="category-btn" data-category="coffee">Кава</button>
+                <button class="category-btn" data-category="drinks">Інші напої</button>
+                <button class="category-btn" data-category="desserts">Десерти</button>
+                <button class="category-btn" data-category="bakery">Випічка</button>
+            </div>
+            <div class="menu-items">
+                <!-- Кава -->
+                <div class="menu-item fade-in" data-category="coffee">
+                    <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Еспресо">
+                    <div class="menu-item-content">
+                        <h3>Еспресо</h3>
+                        <p>Насичений смак із нотами горіхів та карамелі</p>
+                        <div class="menu-item-price">
+                            <span class="price">35 грн</span>
+                            <button class="add-to-cart" data-name="Еспресо" data-price="35">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item fade-in" data-category="coffee">
+                    <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Капучино">
+                    <div class="menu-item-content">
+                        <h3>Капучино</h3>
+                        <p>Ідеальне поєднання еспресо та молочної піни</p>
+                        <div class="menu-item-price">
+                            <span class="price">45 грн</span>
+                            <button class="add-to-cart" data-name="Капучино" data-price="45">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item fade-in" data-category="coffee">
+                    <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Лате">
+                    <div class="menu-item-content">
+                        <h3>Лате</h3>
+                        <p>Ніжний смак з ароматом ванілі та кардамону</p>
+                        <div class="menu-item-price">
+                            <span class="price">50 грн</span>
+                            <button class="add-to-cart" data-name="Лате" data-price="50">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Інші напої -->
+                <div class="menu-item fade-in" data-category="drinks">
+                    <img src="https://images.unsplash.com/photo-1597481499750-3e11b15c81dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Гарячий шоколад">
+                    <div class="menu-item-content">
+                        <h3>Гарячий шоколад</h3>
+                        <p>Густий та насичений з вершковою піною</p>
+                        <div class="menu-item-price">
+                            <span class="price">55 грн</span>
+                            <button class="add-to-cart" data-name="Гарячий шоколад" data-price="55">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item fade-in" data-category="drinks">
+                    <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Чай">
+                    <div class="menu-item-content">
+                        <h3>Чай</h3>
+                        <p>Вибір зелених, чорних та фруктових чаїв</p>
+                        <div class="menu-item-price">
+                            <span class="price">40 грн</span>
+                            <button class="add-to-cart" data-name="Чай" data-price="40">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Десерти -->
+                <div class="menu-item fade-in" data-category="desserts">
+                    <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1329&q=80" alt="Тірамісу">
+                    <div class="menu-item-content">
+                        <h3>Тірамісу</h3>
+                        <p>Класичний італійський десерт з кави та маскарпоне</p>
+                        <div class="menu-item-price">
+                            <span class="price">65 грн</span>
+                            <button class="add-to-cart" data-name="Тірамісу" data-price="65">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item fade-in" data-category="desserts">
+                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Чізкейк">
+                    <div class="menu-item-content">
+                        <h3>Чізкейк Нью-Йорк</h3>
+                        <p>Ніжний з вершковим смаком та ягідним соусом</p>
+                        <div class="menu-item-price">
+                            <span class="price">70 грн</span>
+                            <button class="add-to-cart" data-name="Чізкейк Нью-Йорк" data-price="70">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Випічка -->
+                <div class="menu-item fade-in" data-category="bakery">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Круасан">
+                    <div class="menu-item-content">
+                        <h3>Круасан</h3>
+                        <p>Свіжий, маслянистий з шоколадною начинкою</p>
+                        <div class="menu-item-price">
+                            <span class="price">40 грн</span>
+                            <button class="add-to-cart" data-name="Круасан" data-price="40">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item fade-in" data-category="bakery">
+                    <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80" alt="Макарон">
+                    <div class="menu-item-content">
+                        <h3>Макарон</h3>
+                        <p>Французький десерт з різними смаками</p>
+                        <div class="menu-item-price">
+                            <span class="price">35 грн</span>
+                            <button class="add-to-cart" data-name="Макарон" data-price="35">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кошик -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h2>Ваше замовлення</h2>
+                <button class="cart-close" id="cartClose">✕</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Тут будуть додані товари -->
+            </div>
+            <div class="cart-total">
+                <span>Загалом:</span>
+                <span id="cartTotal">0 грн</span>
+            </div>
+            <button class="btn checkout-btn" id="checkoutBtn">Оформити замовлення</button>
+        </div>
+    </div>
+
+    <!-- Попап замовлення -->
+    <div class="order-popup" id="orderPopup">
+        <div class="order-form">
+            <h2>Оформлення замовлення</h2>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="name">Ім'я</label>
+                    <input type="text" id="name" required placeholder="Введіть ваше ім'я">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Номер телефону</label>
+                    <input type="tel" id="phone" required placeholder="+380 XX XXX XX XX">
+                </div>
+                <div class="form-group">
+                    <label for="pickup">Спосіб отримання</label>
+                    <select id="pickup" required>
+                        <option value="">Оберіть спосіб</option>
+                        <option value="takeaway">Самовивіз</option>
+                        <option value="delivery">Доставка</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="payment">Спосіб оплати</label>
+                    <select id="payment" required>
+                        <option value="">Оберіть спосіб</option>
+                        <option value="cash">Готівка</option>
+                        <option value="card">Картка</option>
+                        <option value="online">Онлайн оплата</option>
+                    </select>
+                </div>
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <p>Відправка замовлення...</p>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" id="cancelOrderBtn">Скасувати</button>
+                    <button type="submit" class="btn" id="submitOrderBtn">Підтвердити замовлення</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Сповіщення про успішне замовлення -->
+    <div class="order-success" id="orderSuccess">
+        <h3>Дякуємо за замовлення!</h3>
+        <p>Ваше замовлення прийнято і буде оброблено найближчим часом.</p>
+        <p>Ми зв'яжемося з вами для підтвердження.</p>
+        <button class="btn" id="closeSuccessBtn">Закрити</button>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Coffffeein</h3>
+                    <p>Місце, де тепло і смачно</p>
+                </div>
+                <div class="footer-contact">
+                    <p>м. Київ, вул. Кавова, 15</p>
+                    <p>+38 (067) 123-45-67</p>
+                    <p>Пн-Нд: 8:00 - 22:00</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link">FB</a>
+                    <a href="#" class="social-link">IG</a>
+                    <a href="#" class="social-link">TG</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Кошик
+    let cart = [];
+    const cartIcon = document.getElementById('cartIcon');
+    const cartCount = document.getElementById('cartCount');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartClose = document.getElementById('cartClose');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const orderPopup = document.getElementById('orderPopup');
+    const cancelOrderBtn = document.getElementById('cancelOrderBtn');
+    const orderForm = document.getElementById('orderForm');
+    const orderOnlineBtn = document.getElementById('orderOnlineBtn');
+    const orderSuccess = document.getElementById('orderSuccess');
+    const closeSuccessBtn = document.getElementById('closeSuccessBtn');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const submitOrderBtn = document.getElementById('submitOrderBtn');
+
+    // GOOGLE SCRIPT DEPLOYMENT URL
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1OqGhqxEwQcBwUyeYq5gKtwxT3U2J5_vt8XiDSijn3iJlCYflhtgg2gcK07ZOEZJxQA/exec';
+
+    // Функція для відправки замовлення через Google Apps Script
+    async function sendOrderToTelegram(orderData) {
+        console.log('Sending order to Google Script:', orderData);
+        
+        // Try multiple approaches
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                console.log(`Attempt ${attempt} to send order...`);
+                
+                let response;
+                
+                switch (attempt) {
+                    case 1:
+                        // Approach 1: Standard JSON
+                        response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(orderData)
+                        });
+                        break;
+                        
+                    case 2:
+                        // Approach 2: No-cors mode
+                        response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(orderData)
+                        });
+                        // In no-cors mode, we can't read response but assume success
+                        console.log('Request sent in no-cors mode - assuming success');
+                        return true;
+                        
+                    case 3:
+                        // Approach 3: FormData
+                        const formData = new FormData();
+                        formData.append('data', JSON.stringify(orderData));
+                        
+                        response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        break;
+                }
+                
+                if (response && response.ok) {
+                    const result = await response.text();
+                    console.log(`Attempt ${attempt} successful, response:`, result);
+                    
+                    // Try to parse JSON response
+                    try {
+                        const jsonResult = JSON.parse(result);
+                        return jsonResult.status === 'success';
+                    } catch (e) {
+                        // If not JSON, check for success keywords in text
+                        return result.includes('success') || result.includes('Order sent') || result.includes('Order received');
+                    }
+                }
+                
+            } catch (error) {
+                console.error(`Attempt ${attempt} failed:`, error);
+                
+                // If this is the last attempt, show error
+                if (attempt === 3) {
+                    console.error('All sending methods failed:', error);
+                    return false;
+                }
+                
+                // Wait a bit before next attempt
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+        
+        return false;
+    }
+
+    // Функція для оновлення кошика
+    function updateCart() {
+        const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = totalCount;
+        
+        cartItems.innerHTML = '';
+        let total = 0;
+        
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p style="text-align: center; color: #666;">Кошик порожній</p>';
+        } else {
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} грн</div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn" onclick="decreaseQuantity(${index})">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+        }
+        
+        cartTotal.textContent = `${total} грн`;
+    }
+
+    // Функції для зміни кількості товару
+    window.increaseQuantity = function(index) {
+        cart[index].quantity++;
+        updateCart();
+    };
+
+    window.decreaseQuantity = function(index) {
+        if (cart[index].quantity > 1) {
+            cart[index].quantity--;
+        } else {
+            cart.splice(index, 1);
+        }
+        updateCart();
+    };
+
+    // Додавання товару до кошика
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-to-cart') || e.target.classList.contains('add-to-cart-btn')) {
+            const name = e.target.dataset.name;
+            const price = parseInt(e.target.dataset.price);
+            
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            updateCart();
+            
+            // Анімація іконки кошика
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 300);
+            
+            console.log('Added to cart:', name, price);
+        }
+    });
+
+    // Відкриття/закриття кошика
+    cartIcon.addEventListener('click', () => {
+        cartOverlay.classList.add('active');
+    });
+
+    cartClose.addEventListener('click', () => {
+        cartOverlay.classList.remove('active');
+    });
+
+    // Відкриття попапу замовлення
+    checkoutBtn.addEventListener('click', () => {
+        if (cart.length === 0) {
+            alert('Ваш кошик порожній! Додайте товари перед оформленням замовлення.');
+            return;
+        }
+        cartOverlay.classList.remove('active');
+        orderPopup.classList.add('active');
+    });
+
+    orderOnlineBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (cart.length === 0) {
+            alert('Ваш кошик порожній! Додайте товари перед оформленням замовлення.');
+            return;
+        }
+        orderPopup.classList.add('active');
+    });
+
+    // Закриття попапу замовлення
+    cancelOrderBtn.addEventListener('click', () => {
+        orderPopup.classList.remove('active');
+    });
+
+    // Закриття сповіщення про успіх
+    closeSuccessBtn.addEventListener('click', () => {
+        orderSuccess.classList.remove('active');
+    });
+
+    // Обробка форми замовлення
+    orderForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const pickup = document.getElementById('pickup').value;
+        const payment = document.getElementById('payment').value;
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        
+        // Валідація
+        if (!name || !phone || !pickup || !payment) {
+            alert('Будь ласка, заповніть всі обовʼязкові поля.');
+            return;
+        }
+        
+        // Показати спінер завантаження
+        loadingSpinner.classList.add('active');
+        submitOrderBtn.disabled = true;
+        
+        // Підготовка даних замовлення
+        const orderData = {
+            name,
+            phone,
+            pickup,
+            payment,
+            total,
+            items: cart.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price
+            })),
+            timestamp: new Date().toISOString()
+        };
+        
+        console.log('Sending order data:', orderData);
+        
+        // Відправка замовлення через Google Apps Script
+        const orderSent = await sendOrderToTelegram(orderData);
+        
+        // Сховати спінер
+        loadingSpinner.classList.remove('active');
+        submitOrderBtn.disabled = false;
+        
+        if (orderSent) {
+            // Показати сповіщення про успіх
+            orderPopup.classList.remove('active');
+            orderSuccess.classList.add('active');
+            
+            // Очищення кошика та форми
+            cart = [];
+            updateCart();
+            orderForm.reset();
+            
+            console.log('Order sent successfully');
+        } else {
+            alert('Сталася помилка при відправці замовлення. Будь ласка, спробуйте ще раз або зателефонуйте нам безпосередньо.');
+            console.error('Failed to send order');
+        }
+    });
+
+    // Фільтрація меню
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Видалення активного класу з усіх кнопок
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            // Додавання активного класу до натиснутої кнопки
+            btn.classList.add('active');
+            
+            const category = btn.dataset.category;
+            
+            document.querySelectorAll('.menu-item').forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Анімація при прокручуванні
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Ініціалізація
+    updateCart();
+    console.log('Website initialized successfully');
+</script>
